@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nazish & Ishrat - Wedding Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FFF9F0;
+            --gold: #C9A961;
+            --deep-teal: #0A5F5F;
+            --emerald: #1B7A6E;
+            --black: #1A1A1A;
+            --white: #FFFFFF;
+            --light-gold: #E8D7B5;
+        }
+
+```
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Lora', serif;
+        background: linear-gradient(135deg, var(--cream) 0%, #FFF5E6 50%, var(--light-gold) 100%);
+        color: var(--black);
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    /* Animated Islamic Pattern Background */
+    .pattern-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 0;
+        background-image: 
+            repeating-linear-gradient(45deg, var(--deep-teal) 0px, var(--deep-teal) 1px, transparent 1px, transparent 20px),
+            repeating-linear-gradient(-45deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 20px);
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Hero Section with Rotating Design */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: 2rem;
+    }
+
+    .monogram-container {
+        position: relative;
+        width: 350px;
+        height: 350px;
+        margin-bottom: 2rem;
+    }
+
+    .monogram-outer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.1s ease-out;
+        will-change: transform;
+    }
+
+    /* Rotating Islamic Geometric Pattern */
+    .geometric-pattern {
+        width: 100%;
+        height: 100%;
+    }
+
+    .monogram-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 70%;
+        height: 70%;
+        background: var(--white);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        z-index: 2;
+    }
+
+    .names-hero {
+        font-family: 'Cinzel', serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--deep-teal);
+        text-align: center;
+        line-height: 1.2;
+    }
+
+    .ampersand {
+        font-size: 1.5rem;
+        color: var(--gold);
+        margin: 0.5rem 0;
+        font-style: italic;
+    }
+
+    .bismillah {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.3rem;
+        color: var(--emerald);
+        text-align: center;
+        margin-top: 2rem;
+        font-style: italic;
+        opacity: 0;
+        animation: fadeInUp 1s ease forwards 0.5s;
+    }
+
+    .invitation-text {
+        font-size: 1.1rem;
+        text-align: center;
+        color: var(--black);
+        max-width: 600px;
+        line-height: 1.8;
+        margin-top: 1rem;
+        opacity: 0;
+        animation: fadeInUp 1s ease forwards 1s;
+    }
+
+    /* Decorative Divider */
+    .divider {
+        width: 200px;
+        height: 2px;
+        background: linear-gradient(to right, transparent, var(--gold), transparent);
+        margin: 3rem auto;
+        position: relative;
+        opacity: 0;
+        animation: fadeIn 1s ease forwards 1.5s;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: '✦';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gold);
+        font-size: 1.2rem;
+    }
+
+    .divider::before { left: -20px; }
+    .divider::after { right: -20px; }
+
+    /* Couple Section */
+    .couple-section {
+        padding: 4rem 2rem;
+        position: relative;
+    }
+
+    .couple-container {
+        display: flex;
+        gap: 3rem;
+        justify-content: center;
+        align-items: stretch;
+        flex-wrap: wrap;
+    }
+
+    .person-card {
+        flex: 1;
+        min-width: 280px;
+        max-width: 350px;
+        background: var(--white);
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.6s ease;
+    }
+
+    .person-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .person-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(to right, var(--gold), var(--emerald));
+    }
+
+    .person-card.bride::before {
+        background: linear-gradient(to right, var(--emerald), var(--gold));
+    }
+
+    .illustration-placeholder {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 1.5rem;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--light-gold) 0%, var(--cream) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .person-name {
+        font-family: 'Cinzel', serif;
+        font-size: 2rem;
+        color: var(--deep-teal);
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .person-title {
+        font-size: 0.95rem;
+        color: var(--gold);
+        text-align: center;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .person-details {
+        font-size: 0.9rem;
+        color: #666;
+        text-align: center;
+        line-height: 1.6;
+    }
+
+    /* Event Details Section */
+    .events-section {
+        padding: 4rem 2rem;
+        background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.5), transparent);
+    }
+
+    .section-title {
+        font-family: 'Cinzel', serif;
+        font-size: 2.5rem;
+        text-align: center;
+        color: var(--deep-teal);
+        margin-bottom: 3rem;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+    }
+
+    .section-title.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .event-card {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 3rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        position: relative;
+        opacity: 0;
+        transform: translateX(-50px);
+        transition: all 0.6s ease;
+    }
+
+    .event-card.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .event-card:nth-child(even) {
+        transform: translateX(50px);
+    }
+
+    .event-card:nth-child(even).visible {
+        transform: translateX(0);
+    }
+
+    .event-type {
+        font-family: 'Cinzel', serif;
+        font-size: 2rem;
+        color: var(--gold);
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .event-date-time {
+        font-size: 1.3rem;
+        color: var(--deep-teal);
+        text-align: center;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .event-location {
+        font-size: 1.1rem;
+        color: #666;
+        text-align: center;
+        line-height: 1.8;
+    }
+
+    .islamic-date {
+        font-size: 0.95rem;
+        color: var(--emerald);
+        text-align: center;
+        font-style: italic;
+        margin-top: 0.5rem;
+    }
+
+    /* Buttons */
+    .button-group {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
+
+    .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Lora', serif;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--deep-teal), var(--emerald));
+        color: var(--white);
+        box-shadow: 0 5px 20px rgba(10,95,95,0.3);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(10,95,95,0.4);
+    }
+
+    .btn-secondary {
+        background: var(--white);
+        color: var(--deep-teal);
+        border: 2px solid var(--gold);
+    }
+
+    .btn-secondary:hover {
+        background: var(--gold);
+        color: var(--white);
+    }
+
+    /* Footer */
+    .footer {
+        padding: 3rem 2rem;
+        text-align: center;
+        color: var(--deep-teal);
+        font-size: 0.95rem;
+    }
+
+    .footer-ornament {
+        font-size: 2rem;
+        color: var(--gold);
+        margin-bottom: 1rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* Floating particles */
+    .particle {
+        position: fixed;
+        width: 3px;
+        height: 3px;
+        background: var(--gold);
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0;
+        animation: float 4s infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { 
+            transform: translateY(0) translateX(0);
+            opacity: 0;
+        }
+        50% { 
+            opacity: 0.5;
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .monogram-container {
+            width: 280px;
+            height: 280px;
+        }
+
+        .names-hero {
+            font-size: 1.8rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .person-card {
+            min-width: 100%;
+        }
+
+        .event-card {
+            padding: 2rem;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="pattern-overlay"></div>
+
+```
+<div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="monogram-container">
+            <div class="monogram-outer">
+                <!-- Islamic Geometric Pattern SVG -->
+                <svg class="geometric-pattern" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#C9A961;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#1B7A6E;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0A5F5F;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- Outer star pattern -->
+                    <g opacity="0.3">
+                        <path d="M 100,10 L 110,60 L 160,50 L 120,90 L 170,120 L 110,110 L 120,160 L 100,110 L 80,160 L 90,110 L 30,120 L 80,90 L 40,50 L 90,60 Z" 
+                              fill="none" stroke="url(#grad1)" stroke-width="1.5"/>
+                    </g>
+                    
+                    <!-- Middle octagon -->
+                    <g opacity="0.5">
+                        <polygon points="100,30 130,45 145,70 145,100 130,125 100,140 70,125 55,100 55,70 70,45" 
+                                 fill="none" stroke="url(#grad1)" stroke-width="2"/>
+                    </g>
+                    
+                    <!-- Inner pattern -->
+                    <g opacity="0.7">
+                        <circle cx="100" cy="100" r="35" fill="none" stroke="url(#grad1)" stroke-width="2"/>
+                        <path d="M 100,65 L 115,85 L 135,100 L 115,115 L 100,135 L 85,115 L 65,100 L 85,85 Z" 
+                              fill="none" stroke="url(#grad1)" stroke-width="1.5"/>
+                    </g>
+                    
+                    <!-- Center dot -->
+                    <circle cx="100" cy="100" r="5" fill="#C9A961" opacity="0.8"/>
+                    
+                    <!-- Decorative corners -->
+                    <g opacity="0.4">
+                        <path d="M 20,20 L 30,20 L 30,30 L 35,35 L 30,30 L 20,30 Z" fill="url(#grad1)"/>
+                        <path d="M 180,20 L 170,20 L 170,30 L 165,35 L 170,30 L 180,30 Z" fill="url(#grad1)"/>
+                        <path d="M 20,180 L 30,180 L 30,170 L 35,165 L 30,170 L 20,170 Z" fill="url(#grad1)"/>
+                        <path d="M 180,180 L 170,180 L 170,170 L 165,165 L 170,170 L 180,170 Z" fill="url(#grad1)"/>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="monogram-center">
+                <div class="names-hero">
+                    NAZISH
+                    <div class="ampersand">&</div>
+                    ISHRAT
+                </div>
+            </div>
+        </div>
+
+        <div class="bismillah">
+            بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ<br>
+            In the name of Allah, The Most Merciful and The Most Beneficent
+        </div>
+
+        <p class="invitation-text">
+            We, Mr. & Mrs. Shaik Nazeer Ahmed, cordially invite you to join us in dua and celebration 
+            as we seek the blessings of Almighty Allah (SWT) on the auspicious occasion of the 
+            Nikah Ceremony of our beloved son
+        </p>
+
+        <div class="divider"></div>
+    </section>
+
+    <!-- Couple Section -->
+    <section class="couple-section">
+        <div class="couple-container">
+            <div class="person-card groom">
+                <div class="illustration-placeholder">
+                    <!-- Simple Groom Cartoon -->
+                    <svg width="160" height="160" viewBox="0 0 160 160">
+                        <!-- Head -->
+                        <circle cx="80" cy="50" r="25" fill="#D4A574"/>
+                        
+                        <!-- Topi/Cap -->
+                        <ellipse cx="80" cy="32" rx="26" ry="9" fill="#FFFFFF"/>
+                        <path d="M 54,32 Q 54,20 80,18 Q 106,20 106,32" fill="#FFFFFF"/>
+                        <path d="M 54,32 L 106,32" stroke="#C9A961" stroke-width="1" fill="none"/>
+                        
+                        <!-- Face features -->
+                        <circle cx="72" cy="48" r="2" fill="#2C3E50"/>
+                        <circle cx="88" cy="48" r="2" fill="#2C3E50"/>
+                        <path d="M 75,58 Q 80,60 85,58" stroke="#8B6F47" stroke-width="1.5" fill="none"/>
+                        
+                        <!-- Sherwani body -->
+                        <rect x="50" y="75" width="60" height="70" rx="5" fill="#2C3E50"/>
+                        
+                        <!-- Collar -->
+                        <path d="M 70,75 L 70,68 L 90,68 L 90,75" fill="#34495E"/>
+                        
+                        <!-- Buttons -->
+                        <circle cx="80" cy="85" r="2" fill="#C9A961"/>
+                        <circle cx="80" cy="95" r="2" fill="#C9A961"/>
+                        <circle cx="80" cy="105" r="2" fill="#C9A961"/>
+                        
+                        <!-- Arms -->
+                        <rect x="35" y="80" width="15" height="50" rx="7" fill="#2C3E50"/>
+                        <rect x="110" y="80" width="15" height="50" rx="7" fill="#2C3E50"/>
+                        
+                        <!-- Hands -->
+                        <circle cx="42" cy="130" r="6" fill="#D4A574"/>
+                        <circle cx="118" cy="130" r="6" fill="#D4A574"/>
+                    </svg>
+                </div>
+                <h3 class="person-name">Nazish Ahmed</h3>
+                <p class="person-title">M.Tech.</p>
+                <p class="person-details">
+                    Son of<br>
+                    Mrs. Fathima & Mr. Nazeer Ahmed<br>
+                    Resident of Chilakaluripet
+                </p>
+            </div>
+
+            <div class="person-card bride">
+                <div class="illustration-placeholder">
+                    <!-- Simple Bride Cartoon -->
+                    <svg width="160" height="160" viewBox="0 0 160 160">
+                        <!-- Head -->
+                        <circle cx="80" cy="50" r="25" fill="#E8C4A0"/>
+                        
+                        <!-- Hijab/Dupatta -->
+                        <path d="M 55,30 Q 50,40 55,60 L 60,65 Q 65,50 70,45 L 80,25 L 90,45 Q 95,50 100,65 L 105,60 Q 110,40 105,30 Q 100,25 80,22 Q 60,25 55,30" 
+                              fill="#1B7A6E"/>
+                        
+                        <!-- Face features -->
+                        <circle cx="72" cy="48" r="2" fill="#2C3E50"/>
+                        <circle cx="88" cy="48" r="2" fill="#2C3E50"/>
+                        <path d="M 75,58 Q 80,60 85,58" stroke="#A0826D" stroke-width="1.5" fill="none"/>
+                        
+                        <!-- Maang Tikka -->
+                        <circle cx="80" cy="32" r="3" fill="#C9A961"/>
+                        <line x1="80" y1="32" x2="80" y2="40" stroke="#C9A961" stroke-width="1"/>
+                        
+                        <!-- Dress body -->
+                        <path d="M 60,70 L 45,140 L 115,140 L 100,70 Q 95,65 80,67 Q 65,65 60,70" fill="#1B7A6E"/>
+                        
+                        <!-- Choli/Top -->
+                        <path d="M 65,70 L 63,80 L 97,80 L 95,70" fill="#0D5F5F"/>
+                        
+                        <!-- Necklace -->
+                        <path d="M 70,68 Q 80,71 90,68" stroke="#C9A961" stroke-width="2" fill="none"/>
+                        <circle cx="80" cy="71" r="2.5" fill="#C9A961"/>
+                        
+                        <!-- Decorative dress pattern -->
+                        <circle cx="70" cy="100" r="2" fill="#FFD700" opacity="0.6"/>
+                        <circle cx="80" cy="98" r="2" fill="#FFD700" opacity="0.6"/>
+                        <circle cx="90" cy="100" r="2" fill="#FFD700" opacity="0.6"/>
+                        <circle cx="65" cy="115" r="2" fill="#FFD700" opacity="0.6"/>
+                        <circle cx="80" cy="113" r="2" fill="#FFD700" opacity="0.6"/>
+                        <circle cx="95" cy="115" r="2" fill="#FFD700" opacity="0.6"/>
+                    </svg>
+                </div>
+                <h3 class="person-name">Ishrat</h3>
+                <p class="person-title">BCA</p>
+                <p class="person-details">
+                    Daughter of<br>
+                    Mrs. Shaik Habibun & Mr. Shaik Subani (Late)<br>
+                    Resident of Martur
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events-section">
+        <h2 class="section-title">Wedding Celebrations</h2>
+
+        <div class="event-card">
+            <h3 class="event-type">Nikah</h3>
+            <p class="event-date-time">Thursday, April 30th, 2026 at 11:30 AM</p>
+            <p class="islamic-date">(12th Shawwal 1447 AH)</p>
+            <div class="divider"></div>
+            <p class="event-location">
+                Insha Allah
+            </p>
+        </div>
+
+        <div class="event-card">
+            <h3 class="event-type">Valima & Dinner</h3>
+            <p class="event-date-time">Friday, May 1st, 2026 at 8:00 PM onwards</p>
+            <div class="divider"></div>
+            <p class="event-location">
+                <strong>Shalubude Muslim Shadi Khana</strong><br>
+                CR Colony, Chilakaluripet<br>
+                Palnadu District, Andhra Pradesh
+            </p>
+            
+            <div class="button-group">
+                <a href="https://maps.app.goo.gl/x1UZGFe11mqZbEe48?g_st=ic" 
+                   target="_blank" 
+                   class="btn btn-primary">
+                    📍 Get Directions
+                </a>
+                <button onclick="addToCalendar()" class="btn btn-secondary">
+                    📅 Add Reminder
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-ornament">✦ ❖ ✦</div>
+        <p>We would be honored by your presence on this blessed occasion</p>
+        <p style="margin-top: 1rem; font-style: italic;">With Best Compliments from Near & Dear</p>
+    </footer>
+</div>
+
+<script>
+    // Geometric pattern rotation based on scroll
+    let lastScrollY = window.scrollY;
+    const monogram = document.querySelector('.monogram-outer');
+    let rotation = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        const scrollDelta = currentScrollY - lastScrollY;
+        
+        // Rotate based on scroll direction
+        rotation += scrollDelta * 0.3;
+        monogram.style.transform = `rotate(${rotation}deg)`;
+        
+        lastScrollY = currentScrollY;
+    });
+
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Observe all animated elements
+    document.querySelectorAll('.person-card, .event-card, .section-title').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Add to Calendar Function
+    function addToCalendar() {
+        const event = {
+            title: 'Nazish & Ishrat - Valima Ceremony',
+            description: 'Wedding Valima Dinner Celebration\n\nGroom: Nazish Ahmed M.Tech.\nBride: Ishrat BCA\n\nVenue: Shalubude Muslim Shadi Khana, CR Colony, Chilakaluripet\nTime: 8:00 PM onwards\n\nWe look forward to your presence on this blessed occasion.',
+            location: 'Shalubude Muslim Shadi Khana, CR Colony, Chilakaluripet, Palnadu District, Andhra Pradesh',
+            start: '20260501T143000Z', // 8:00 PM IST = 2:30 PM UTC
+            end: '20260501T173000Z',   // 11:00 PM IST = 5:30 PM UTC
+        };
+
+        // For iOS/Apple devices - use Google Calendar
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            const googleCalUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.start}/${event.end}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}`;
+            window.open(googleCalUrl, '_blank');
+        } else {
+            // For other devices - create ICS file
+            const icsContent = `BEGIN:VCALENDAR
+```
+
+VERSION:2.0
+PRODID:-//Wedding Invitation//EN
+BEGIN:VEVENT
+UID:${Date.now()}@wedding-invitation
+DTSTAMP:${new Date().toISOString().replace(/[-:]/g, ‘’).split(’.’)[0]}Z
+DTSTART:${event.start}
+DTEND:${event.end}
+SUMMARY:${event.title}
+DESCRIPTION:${event.description.replace(/\n/g, ‘\n’)}
+LOCATION:${event.location}
+BEGIN:VALARM
+TRIGGER:-P1DT3H30M
+DESCRIPTION:Reminder: Nazish & Ishrat Valima Ceremony Tomorrow at 8:00 PM - Shalubude Muslim Shadi Khana, Chilakaluripet
+ACTION:DISPLAY
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+
+```
+            const blob = new Blob([icsContent], { type: 'text/calendar' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'nazish-ishrat-valima.ics';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    }
+
+    // Create floating particles
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * window.innerWidth + 'px';
+        particle.style.top = Math.random() * window.innerHeight + 'px';
+        particle.style.animationDelay = Math.random() * 4 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+            particle.remove();
+        }, 7000);
+    }
+
+    // Generate particles periodically
+    setInterval(createParticle, 800);
+</script>
+```
+
+</body>
+</html>
